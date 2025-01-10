@@ -78,6 +78,21 @@
 - id: "about_button"
   translation: "About Me"
 
+  ## About Alternative
+
+- id: "about_alt_subtitle"
+  translation: "Let's dive into an example"
+
+- id: "about_alt_description"
+  translation: "This is a high performance theme for the Hugo static site generator. This sample content can be edited in the locale files (as the theme supports translations). <br>You can download this theme from <a target='_blank' href='https://github.com/zetxek/adritian-free-hugo-theme'>github</a>, and see it live <a target='_blank' href='https://adritian-demo.vercel.app/'>as a demo site</a> or <a target='_blank' href='https://www.adrianmoreno.info'>a real one</a>.<br>You can find this content to edit in the theme.yaml file."
+
+- id: "about_alt_button"
+  translation: "Contact"
+
+  ## not visible but used for accessibility
+- id: "about_alt_image_alt"
+  translation: "A picture of Cool Name"
+
 ## Homepage education
 - id: "education_title"
   translation: "Education"
