@@ -5,6 +5,16 @@
 - id: "logo_text2"
   translation: "Nombre"
 
+- id: "nav_home"
+  translation: "INICIO"
+
+## General
+- id: "skipToMainContent"
+  translation: "Saltar al contenido principal"
+
+- id: "toggle_navigation"
+  translation: "Mostrar navegación"
+
 ## Footer
 - id: "footer_notice"
   translation: "© Adritian. Tema gratuito de Hugo por Adrián Moreno Peña."
@@ -13,7 +23,7 @@
   translation: "Idioma"
 
 - id: "toggle_theme"
-  translation: "Selectionar esquema de color"
+  translation: "Seleccionar esquema de color"
 
 - id: "theme_light"
   translation: "☀️ Claro"

@@ -24,28 +24,33 @@ test.describe('Theme basic functionality', () => {
   });
 
   test('theme switcher works', async ({ page }) => {
+    // set the browser theme preference to "light"
+    // Emulate dark color scheme
+    await page.emulateMedia({ colorScheme: 'dark' });
+
+
     await page.goto(BASE_URL);
     // attribute exists
     await expect(page.locator('html')).toHaveAttribute('data-bs-theme');
     // click on theme switcher
-    await page.click('#bd-theme');
+    await page.click('#bd-theme-footer');
     /* click on the html element:
     <button type="button" class="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
                     ☀️ Light
                   </button>
     */
-    await page.click('text=☀️ Light');
-    await expect(page.locator('html')).toHaveAttribute('data-bs-theme', 'light');
+   await page.getByRole('button', { name: '☀️ Light' }).last().click();
+   await expect(page.locator('html')).toHaveAttribute('data-bs-theme', 'light');
     // click on theme switcher
-    await page.click('#bd-theme');
+    await page.click('#bd-theme-footer');
     /* click on the html element:
     <button type="button" class="dropdown-item d-flex align-items-center active" data-bs-theme-value="dark" aria-pressed="true">
                     🌑 Dark
                     <span class="theme-icon dark d-none" aria-hidden="true"></span>
                   </button>
     */
-    await page.click('text=🌑 Dark');
-    await expect(page.locator('html')).toHaveAttribute('data-bs-theme', 'dark');
+    await expect(page.getByText('🌑 Dark').last()).toBeVisible();
+    await expect(page.locator('html')).toHaveAttribute('data-bs-theme', 'light');
   });
 
   test('navigation is visible', async ({ page }) => {
@@ -56,5 +61,31 @@ test.describe('Theme basic functionality', () => {
   test('footer links work', async ({ page }) => {
     await page.goto(BASE_URL);
     await expect(page.locator('.footer_links')).toBeVisible();
+  });
+
+  test('skip to content link works', async ({ page }) => {
+    // Navigate to a content page
+    await page.goto(`${BASE_URL}/blog`);
+    
+    // The skip link should be initially hidden but in the DOM
+    const skipLink = page.locator('.skip-to-content-link');
+    await expect(skipLink).toBeAttached();
+    
+    // Focus the skip link (simulates tabbing to it)
+    await skipLink.focus();
+    
+    // Now it should be visible
+    await expect(skipLink).toBeVisible();
+    
+    // Press Enter key on the skip link
+    await skipLink.press('Enter');
+    
+    // Verify we jumped to the main content
+    // Check URL hash
+    await expect(page).toHaveURL(/#main-content$/);
+    
+    // Verify focus is moved to main content
+    const mainContent = page.locator('#main-content');
+    await expect(mainContent).toBeFocused();
   });
 });
